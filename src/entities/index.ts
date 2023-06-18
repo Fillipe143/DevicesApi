@@ -1,1 +1,2 @@
-export * from "./Device"
+export * from "./Device";
+export * from "./DeviceFilter";
