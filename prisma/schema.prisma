@@ -9,3 +9,12 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Device {
+  id        Int    @id @default(autoincrement())
+  ssid      String
+  mac       String @db.Char(17)
+  rssi      Int
+  channel   Int
+  createdAt BigInt @db.UnsignedBigInt
+}
