@@ -11,10 +11,10 @@ datasource db {
 }
 
 model Device {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   ssid      String
-  mac       String @db.Char(17)
+  mac       String   @db.Char(17)
   rssi      Int
   channel   Int
-  createdAt BigInt @db.UnsignedBigInt
+  createdAt DateTime @default(now())
 }
