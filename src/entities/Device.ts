@@ -10,6 +10,12 @@ const QueryDevice = z.object({
     channel: z.string().transform(val => Number(val)).refine(val => !isNaN(val) && val >= 1 && val <= NUMBER_OF_CHANNELS)
 });
 
-type Device = typeof QueryDevice._type;
+type Device = {
+    ssid: string,
+    mac: string,
+    rssi: number,
+    channel: number,
+    createdAt?: Date
+};
 
 export { QueryDevice, Device, MAC_LENGTH, NUMBER_OF_CHANNELS };
