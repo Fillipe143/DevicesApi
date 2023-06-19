@@ -3,6 +3,8 @@ import { MAC_LENGTH, NUMBER_OF_CHANNELS } from "./Device";
 
 const QueryDeviceFilter = z.object({
     id: z.string().transform(val => Number(val)).refine(val => !isNaN(val)).optional(),
+    min_id: z.string().transform(val => Number(val)).refine(val => !isNaN(val)).optional(),
+    max_id: z.string().transform(val => Number(val)).refine(val => !isNaN(val)).optional(),
 
     ssid: z.string().optional(),
     mac: z.string().refine(val => val.length == MAC_LENGTH).optional(),
