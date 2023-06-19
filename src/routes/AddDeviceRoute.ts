@@ -9,9 +9,19 @@ class AddDeviceRoute implements Route {
 
         if (device.success) {
             deviceRepository.add(device.data)
-                .then(() => AddDeviceRoute.result(res, 200, "Successful"))
-                .catch(() => AddDeviceRoute.result(res, 500, "Internal Server Error"));
-        } else AddDeviceRoute.result(res, 400, "Bad request");
+                .then(() => {
+                    console.log("Device added successfully:");
+                    console.table([device.data]);
+                    AddDeviceRoute.result(res, 200, "Successful");
+                })
+                .catch((error) => {
+                    console.error("Error adding device:", error);
+                    AddDeviceRoute.result(res, 500, "Internal Server Error");
+                });
+        } else {
+            console.warn("Invalid device request:", device.error);
+            AddDeviceRoute.result(res, 400, "Bad request");
+        }
     }
 
     private static result(res: Response, status: number, message: string): void {

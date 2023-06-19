@@ -9,9 +9,19 @@ class GetDevicesRoute implements Route {
 
         if (deviceFilter.success) {
             deviceRepository.get(deviceFilter.data)
-                .then((devices: Device[]) => GetDevicesRoute.result(res, 200, "Successful", devices))
-                .catch(() => GetDevicesRoute.result(res, 500, "Internal Server Error"));
-        } else GetDevicesRoute.result(res, 400, "Bad request");
+                .then((devices: Device[]) => {
+                    console.log('Devices retrieved successfully:');
+                    console.table(devices);
+                    GetDevicesRoute.result(res, 200, "Successful", devices);
+                })
+                .catch((error) => {
+                    console.error('Error retrieving devices:', error);
+                    GetDevicesRoute.result(res, 500, "Internal Server Error");
+                });
+        } else {
+            console.warn('Invalid device filter request:', deviceFilter.error);
+            GetDevicesRoute.result(res, 400, "Bad request");
+        }
     }
 
     private static result(res: Response, status: number, message: string, data?: Device[]): void {
