@@ -12,4 +12,4 @@ const QueryDevice = z.object({
 
 type Device = typeof QueryDevice._type;
 
-export { QueryDevice, Device };
+export { QueryDevice, Device, MAC_LENGTH, NUMBER_OF_CHANNELS };
